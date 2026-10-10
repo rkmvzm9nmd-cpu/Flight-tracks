@@ -1,0 +1,9 @@
+# Raw downloads from eBird Status and Trends (large; rebuilt by the workflow)
+.cache/
+
+# Generated globe data (built by the workflow on every deploy)
+site/data/
+
+__pycache__/
+*.pyc
+.DS_Store

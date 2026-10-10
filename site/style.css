@@ -1,0 +1,202 @@
+:root {
+  --sky: #141b38;
+  --sky-2: #1a2347;
+  --line: #2c3762;
+  --ink: #e9ecf7;
+  --ink-2: #a9b0cf;
+  --ink-3: #7b83a8;
+  --americas: #e77fa6;
+  --eurafrica: #f2c35b;
+  --asiapac: #7fd6c9;
+  --today: #ffffff;
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--sky); color: var(--ink); }
+body { font: 15px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+a { color: var(--ink); text-decoration-color: var(--ink-3); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+.app {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "index stage" "timeline timeline";
+}
+
+/* Species index ----------------------------------------------------- */
+.index {
+  grid-area: index;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0 20px 28px;
+  min-height: 0;
+  z-index: 2;
+}
+.brand h1 {
+  font: 500 30px/1.05 var(--serif);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.brand p { margin: 8px 24px 0 0; color: var(--ink-2); font-size: 14px; }
+nav { margin-top: 28px; overflow-y: auto; min-height: 0; flex: 1; padding-right: 12px; }
+.species-list { list-style: none; margin: 0; padding: 0; }
+.species-list button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-left: 2px solid transparent;
+  padding: 7px 12px 7px 14px;
+  margin-left: -16px;
+  cursor: pointer;
+  border-radius: 0;
+}
+.species-list .name { display: block; font: 400 18px/1.25 var(--serif); }
+.species-list .sci { display: block; font: italic 400 13px/1.3 var(--serif); color: var(--ink-3); margin-top: 1px; }
+.species-list button:hover .name { color: #fff; }
+.species-list button[aria-current="true"] { border-left-color: var(--ink); }
+.species-list button[aria-current="true"] .sci { color: var(--ink-2); }
+.about-link {
+  align-self: flex-start;
+  background: none; border: 0; padding: 0; margin-top: 16px;
+  color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--ink-3);
+  text-underline-offset: 3px; cursor: pointer; font-size: 14px;
+}
+
+/* Globe stage ------------------------------------------------------- */
+.stage { grid-area: stage; position: relative; min-height: 0; overflow: hidden; }
+.globe { position: absolute; inset: 0; cursor: grab; touch-action: none; }
+.globe:active { cursor: grabbing; }
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.region-label {
+  position: absolute; left: 0; top: 0;
+  font: 500 12px/1.2 var(--sans);
+  color: var(--ink);
+  white-space: nowrap;
+  margin-left: 14px;
+  padding: 3px 7px 4px;
+  border-radius: 5px;
+  background: rgba(20, 27, 56, 0.78);
+  transition: opacity 0.2s;
+}
+.region-label small { display: block; font-weight: 400; color: var(--ink-2); }
+
+.detail {
+  position: absolute; top: 28px; right: 28px;
+  width: min(300px, 40%);
+  pointer-events: none;
+}
+.detail h2 { font: 500 26px/1.15 var(--serif); margin: 0; }
+.detail .sci { font: italic 400 15px/1.3 var(--serif); color: var(--ink-2); margin: 4px 0 0; }
+.detail .blurb { color: var(--ink-2); font-size: 14px; margin: 12px 0 0; max-width: 34em; }
+.regions { list-style: none; padding: 0; margin: 14px 0 0; font-size: 13px; }
+.regions li { display: flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--ink-2); }
+.regions .swatch { width: 18px; height: 3px; border-radius: 2px; flex: none; }
+.status { font-size: 13px; color: var(--ink-3); margin: 12px 0 0; min-height: 1.5em; }
+
+.message {
+  position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
+  padding: 24px; color: var(--ink-2); max-width: 520px; margin: auto;
+}
+.message h2 { font: 500 24px/1.2 var(--serif); color: var(--ink); margin: 0 0 8px; }
+
+/* Timeline ---------------------------------------------------------- */
+.timeline {
+  grid-area: timeline;
+  display: grid;
+  grid-template-columns: 236px 1fr;
+  gap: 0 28px;
+  align-items: start;
+  padding: 14px 28px 18px;
+  border-top: 1px solid var(--line);
+  background: var(--sky);
+  z-index: 2;
+}
+.when { display: flex; gap: 14px; align-items: flex-start; padding-top: 6px; }
+.play {
+  flex: none; width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--ink); background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.play svg { width: 18px; height: 18px; fill: var(--ink); }
+.play .icon-pause { display: none; }
+.play[aria-pressed="true"] .icon-play { display: none; }
+.play[aria-pressed="true"] .icon-pause { display: inline; }
+.play:hover { background: var(--sky-2); }
+.week-label { font: 500 22px/1.15 var(--serif); margin: 2px 0 0; font-variant-numeric: lining-nums; }
+.today {
+  background: none; border: 0; padding: 0; margin-top: 4px; cursor: pointer;
+  color: var(--ink-2); font-size: 13px; text-decoration: underline;
+  text-decoration-color: var(--ink-3); text-underline-offset: 3px;
+}
+.track-wrap { min-width: 0; }
+.track { display: block; width: 100%; height: 118px; cursor: ew-resize; touch-action: none; }
+.track-note { margin: 2px 0 0; font-size: 12px; color: var(--ink-3); }
+.track .month { font: 400 11px var(--sans); fill: var(--ink-3); }
+.track .axis { font: 400 11px var(--sans); fill: var(--ink-3); }
+.track .grid { stroke: var(--line); stroke-width: 1; }
+.track .equator { stroke: var(--line); stroke-dasharray: 3 4; }
+.track .cursor { stroke: var(--ink); stroke-width: 1.5; }
+.track .cursor-knob { fill: var(--ink); }
+.track .today-mark { fill: var(--today); }
+.track .today-text { font: 500 11px var(--sans); fill: var(--ink); }
+
+/* About dialog ------------------------------------------------------ */
+.about {
+  max-width: 600px; width: calc(100% - 32px);
+  background: var(--sky-2); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px;
+}
+.about::backdrop { background: rgba(10, 14, 32, 0.6); }
+.about h2 { font: 500 26px/1.2 var(--serif); margin: 0 0 12px; }
+.about h3 { font: 500 18px/1.3 var(--serif); margin: 20px 0 6px; }
+.about p { color: var(--ink-2); margin: 0 0 10px; font-size: 14px; }
+.about .cite { font-size: 13px; }
+.about .close {
+  float: right; background: none; border: 1px solid var(--line); border-radius: 6px;
+  padding: 4px 10px; cursor: pointer; color: var(--ink-2); font-size: 13px;
+}
+
+/* Small screens ----------------------------------------------------- */
+@media (max-width: 760px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(300px, 1fr) auto;
+    grid-template-areas: "index" "stage" "timeline";
+  }
+  .index { padding: 16px 16px 0; min-width: 0; }
+  .brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .brand h1 { font-size: 24px; }
+  .brand p { display: none; }
+  nav { margin-top: 10px; overflow-x: auto; overflow-y: hidden; padding: 0 0 6px; }
+  .species-list { display: flex; gap: 4px; }
+  .species-list li { flex: none; }
+  .species-list button {
+    margin: 0; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;
+  }
+  .species-list button[aria-current="true"] { border-color: var(--ink); background: var(--sky-2); }
+  .species-list .sci { display: none; }
+  .species-list .name { font-size: 15px; }
+  .about-link { position: absolute; top: 20px; right: 16px; margin: 0; font-size: 13px; }
+  .detail { top: auto; bottom: 12px; left: 16px; right: 16px; width: auto; }
+  .detail h2 { font-size: 20px; }
+  .detail .blurb, .detail .regions { display: none; }
+  .detail .status { margin-top: 4px; }
+  .timeline { grid-template-columns: minmax(0, 1fr); padding: 10px 16px 14px; gap: 8px; }
+  .when { padding-top: 0; align-items: center; }
+  .play { width: 42px; height: 42px; }
+  .week-label { font-size: 19px; }
+  .track { height: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region-label { transition: none; }
+}

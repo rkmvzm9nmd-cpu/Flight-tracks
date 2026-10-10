@@ -1,0 +1,71 @@
+name: Build data and deploy
+
+# Downloads eBird Status and Trends data, renders the weekly globe frames,
+# and publishes the site to GitHub Pages.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+
+      - name: Install pipeline dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Check the eBird key is set
+        env:
+          EBIRDST_KEY: ${{ secrets.EBIRDST_KEY }}
+        run: |
+          if [ -z "$EBIRDST_KEY" ]; then
+            echo "::error::Add your eBird Status and Trends key as a repository secret named EBIRDST_KEY (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+
+      # Raw rasters are large and only change once a year, so keep them between runs.
+      - name: Restore downloaded rasters
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ebirdst-2023-${{ hashFiles('pipeline/species.json') }}
+          restore-keys: ebirdst-2023-
+
+      - name: Build globe data
+        env:
+          EBIRDST_KEY: ${{ secrets.EBIRDST_KEY }}
+        run: python pipeline/build_data.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

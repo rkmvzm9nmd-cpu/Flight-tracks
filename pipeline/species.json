@@ -1,0 +1,62 @@
+[
+  {
+    "code": "barswa",
+    "common": "Barn Swallow",
+    "sci": "Hirundo rustica",
+    "blurb": "Breeds across the Northern Hemisphere and winters in South America, Africa, South Asia and Australia, so several populations move at once on different continents."
+  },
+  {
+    "code": "arcter",
+    "common": "Arctic Tern",
+    "sci": "Sterna paradisaea",
+    "blurb": "Nests around the Arctic and spends the northern winter in the Southern Ocean near Antarctica, the longest regular migration of any bird. Most of the year is spent at sea, where survey data are thinner."
+  },
+  {
+    "code": "rthhum",
+    "common": "Ruby-throated Hummingbird",
+    "sci": "Archilochus colubris",
+    "blurb": "Breeds across eastern North America and winters from southern Mexico to Central America. Many cross the Gulf of Mexico in a single flight."
+  },
+  {
+    "code": "comswi",
+    "common": "Common Swift",
+    "sci": "Apus apus",
+    "blurb": "Arrives in Europe and Asia for a short summer of breeding, then returns to sub-Saharan Africa. Outside the nesting season it rarely lands."
+  },
+  {
+    "code": "whisto1",
+    "common": "White Stork",
+    "sci": "Ciconia ciconia",
+    "blurb": "A soaring migrant that avoids long sea crossings, so its routes funnel through Gibraltar and the Bosporus on the way between Europe and Africa."
+  },
+  {
+    "code": "bkpwar",
+    "common": "Blackpoll Warbler",
+    "sci": "Setophaga striata",
+    "blurb": "Breeds in the boreal forests of Alaska and Canada. In autumn many fly nonstop over the western Atlantic to reach the Caribbean and South America."
+  },
+  {
+    "code": "swahaw",
+    "common": "Swainson's Hawk",
+    "sci": "Buteo swainsoni",
+    "blurb": "Breeds on the plains of western North America and winters on the pampas of Argentina, travelling in large flocks along Central America."
+  },
+  {
+    "code": "osprey",
+    "common": "Osprey",
+    "sci": "Pandion haliaetus",
+    "blurb": "A fish-eating raptor found on every continent except Antarctica. Northern populations migrate south for the winter while many tropical birds stay put."
+  },
+  {
+    "code": "batgod",
+    "common": "Bar-tailed Godwit",
+    "sci": "Limosa lapponica",
+    "blurb": "Breeds in the Arctic tundra. Alaskan birds fly nonstop across the Pacific to New Zealand and eastern Australia, among the longest single flights known for any bird."
+  },
+  {
+    "code": "comcuc",
+    "common": "Common Cuckoo",
+    "sci": "Cuculus canorus",
+    "blurb": "Spends spring and summer across Europe and Asia, laying its eggs in other birds' nests, then winters in Africa. Satellite tags have revealed its routes over the Sahara."
+  }
+]

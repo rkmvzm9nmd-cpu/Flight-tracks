@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight tracks</title>
+  <meta name="description" content="Watch where the world's migratory birds are, week by week, on a globe. Built on eBird Status and Trends.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <aside class="index" aria-label="Species">
+      <header class="brand">
+        <h1>Flight tracks</h1>
+        <p>Where migratory birds are through the year</p>
+      </header>
+      <nav>
+        <ul id="species-list" class="species-list"></ul>
+      </nav>
+      <button class="about-link" type="button" id="about-open">About this map</button>
+    </aside>
+
+    <main class="stage">
+      <div id="globe" class="globe" role="img" aria-label="Globe showing where the selected species is during the selected week"></div>
+      <div id="labels" class="labels" aria-hidden="true"></div>
+
+      <section class="detail" id="detail" aria-live="polite">
+        <h2 id="detail-name"></h2>
+        <p class="sci" id="detail-sci"></p>
+        <p class="blurb" id="detail-blurb"></p>
+        <ul class="regions" id="detail-regions"></ul>
+        <p class="status" id="status"></p>
+      </section>
+
+      <div class="message" id="message" hidden></div>
+    </main>
+
+    <footer class="timeline">
+      <div class="when">
+        <button type="button" class="play" id="play" aria-label="Play the year">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path class="icon-play" d="M6 4l10 6-10 6z"/><g class="icon-pause"><rect x="5" y="4" width="3.5" height="12" rx="1"/><rect x="11.5" y="4" width="3.5" height="12" rx="1"/></g></svg>
+        </button>
+        <div>
+          <p class="week-label" id="week-label">&nbsp;</p>
+          <button type="button" class="today" id="today">Jump to this week</button>
+        </div>
+      </div>
+      <div class="track-wrap">
+        <svg id="track" class="track" role="slider" tabindex="0" aria-label="Week of the year"
+             aria-valuemin="1" aria-valuemax="52" aria-valuenow="1"></svg>
+        <p class="track-note">Bands show how far north or south each population sits. Wider means more birds.</p>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="about" class="about">
+    <form method="dialog"><button class="close" aria-label="Close">Close</button></form>
+    <h2>About this map</h2>
+    <p>The coloured glow is each species' estimated relative abundance for every week of the year, from
+      <a href="https://ebird.org/science/status-and-trends" target="_blank" rel="noopener">eBird Status and Trends</a>
+      at the Cornell Lab of Ornithology. Their models combine millions of eBird checklists with satellite land-cover data.
+      Brighter means more birds relative to that species' own range, so colours can't be compared between species.</p>
+    <p>The lines on the globe follow the weighted centre of each regional population, week by week. Populations are separated by
+      longitude into the Americas, Europe and Africa, and Asia and the Pacific. A centre is an average: birds spread across a wide
+      area can have a centre where few birds actually are, especially at sea.</p>
+    <p>Data are estimates for one year (<span id="about-year">2023</span>) and are not live sightings.</p>
+    <h3>Citation</h3>
+    <p class="cite">Fink, D., T. Auer, A. Johnston, M. Strimas-Mackey, S. Ligocki, O. Robinson, W. Hochachka, L. Jaromczyk,
+      C. Crowley, K. Dunham, A. Stillman, C. Davis, M. Stokowski, P. Sharma, V. Pantoja, D. Burgin, P. Crowe, M. Bell, S. Ray,
+      I. Davies, V. Ruiz-Gutierrez, C. Wood, A. Rodewald. 2024. eBird Status and Trends, Data Version: 2023; Released: 2025.
+      Cornell Lab of Ornithology, Ithaca, New York. <a href="https://doi.org/10.2173/WZTW8903" target="_blank" rel="noopener">https://doi.org/10.2173/WZTW8903</a></p>
+    <h3>Also used</h3>
+    <p>Globe drawn with <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>. Base map shaded from the
+      land and elevation images in <a href="https://github.com/vasturiano/three-globe" target="_blank" rel="noopener">three-globe</a>, derived from NASA imagery.</p>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
